@@ -6,7 +6,10 @@ on:
 
 jobs:
   build:
-    runs-on: windows-latest
+    runs-on: windows-2025-vs2026 
+
+    env:
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true 
 
     steps:
     - name: Checkout Code
@@ -21,11 +24,11 @@ jobs:
       run: dotnet restore
 
     - name: Build Single File EXE
-      run: dotnet publish -c Release -r win-x64 -p:PublishSingleFile=true -p:PublishReadyToRun=true -o ./publish
+      run: dotnet publish -c Release -r win-x64 --self-contained true /p:PublishSingleFile=true /p:PublishReadyToRun=true -o ./publish
 
     - name: Upload EXE to Release
       uses: softprops/action-gh-release@v2
       with:
-        files: ./publish/HardwareDiagnosticsTool.exe
+        files: ./publish/KernelProcessDiagnosticsTool.exe # 确保这里的名称与你编译出来的 exe 一致
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
