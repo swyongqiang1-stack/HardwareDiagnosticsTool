@@ -29,6 +29,6 @@ jobs:
     - name: Upload EXE to Release
       uses: softprops/action-gh-release@v2
       with:
-        files: ./publish/KernelProcessDiagnosticsTool.exe # 确保这里的名称与你编译出来的 exe 一致
+        files: ./publish/KernelProcessDiagnosticsTool.exe 
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
